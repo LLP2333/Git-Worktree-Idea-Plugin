@@ -4,8 +4,8 @@
 
 下载已发布版本：
 
-- [git-worktree-intellij-1.0.3.zip](https://github.com/AixLau/Git-Worktree/releases/download/v1.0.3/git-worktree-intellij-1.0.3.zip)
-- [Release 页面](https://github.com/AixLau/Git-Worktree/releases/tag/v1.0.3)
+- [git-worktree-intellij-1.0.3.zip](https://github.com/LLP2333/Git-Worktree-Idea-Plugin/releases/download/V1.0.0/git-worktree-intellij-1.0.0.zip)
+- [Release 页面](https://github.com/LLP2333/Git-Worktree-Idea-Plugin/releases/tag/V1.0.0)
 
 ## 功能概览
 
