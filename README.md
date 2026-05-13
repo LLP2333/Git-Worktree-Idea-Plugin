@@ -137,6 +137,16 @@ git worktree add <path> origin/main
 - 默认运行外部工具
 - 默认外部工具命令
 
+## 本地化
+
+插件文案通过 `src/main/resources/messages/GitWorktreeBundle*.properties` 管理。
+
+- `GitWorktreeBundle.properties` 是默认英文文案。
+- `GitWorktreeBundle_zh_CN.properties` 是中文文案。
+- 新增语言时，按 Java ResourceBundle 规则增加对应文件，例如 `GitWorktreeBundle_ja.properties`。
+
+IntelliJ IDEA 会根据当前 IDE 语言自动选择匹配的资源文件，未匹配时回落到默认英文文案。
+
 ## 开发
 
 构建：
