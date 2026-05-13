@@ -2,7 +2,7 @@
 
 `Git Worktree` 是一个 IntelliJ IDEA 插件，用来在 IDE 内直接管理 Git worktree。
 
-下载最新版本：
+下载已发布版本：
 
 - [git-worktree-intellij-1.0.3.zip](https://github.com/AixLau/Git-Worktree/releases/download/v1.0.3/git-worktree-intellij-1.0.3.zip)
 - [Release 页面](https://github.com/AixLau/Git-Worktree/releases/tag/v1.0.3)
@@ -22,8 +22,8 @@
 
 ## 兼容性
 
-- IntelliJ IDEA `2025.3`
-- Build 范围 `253.*`
+- IntelliJ IDEA `2025.1.7.1` - `2025.3`
+- Build 范围 `251` - `253.*`
 - Java `21`
 
 ## 安装方式
@@ -36,7 +36,7 @@
 
 当前本地产物：
 
-- [build/distributions/git-worktree-intellij-1.0.3.zip](build/distributions/git-worktree-intellij-1.0.3.zip)
+- [build/distributions/git-worktree-intellij-1.0.4.zip](build/distributions/git-worktree-intellij-1.0.4.zip)
 
 ## 入口位置
 

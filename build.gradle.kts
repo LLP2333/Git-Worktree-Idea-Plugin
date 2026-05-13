@@ -23,7 +23,7 @@ val bundledPlugins = providers.gradleProperty("platformBundledPlugins").get()
         if ("org.jetbrains.idea.maven" !in this) {
             add("org.jetbrains.idea.maven")
         }
-        // Full Line's YAML module depends on the bundled YAML plugin in 2025.3.
+        // Full Line's YAML module depends on the bundled YAML plugin in newer IDE builds.
         if ("org.jetbrains.plugins.yaml" !in this) {
             add("org.jetbrains.plugins.yaml")
         }
@@ -85,7 +85,7 @@ intellijPlatform {
 
 tasks {
     withType<PrepareSandboxTask>().configureEach {
-        // 2025.3 bundles Full Line; its YAML module emits a descriptor warning in sandboxed test/runtime startup.
+        // Newer IDE builds may bundle Full Line; its YAML module emits a descriptor warning in sandboxed test/runtime startup.
         disabledPlugins.addAll("org.jetbrains.completion.full.line", "fullLine")
     }
 
