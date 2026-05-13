@@ -1,0 +1,87 @@
+name: Build Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish plugin release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read plugin version
+        id: version
+        shell: bash
+        run: |
+          version="$(awk -F '=' '/^pluginVersion[[:space:]]*=/{gsub(/[[:space:]]/, "", $2); print $2}' gradle.properties)"
+          if [[ -z "$version" ]]; then
+            echo "pluginVersion was not found in gradle.properties" >&2
+            exit 1
+          fi
+
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=V$version" >> "$GITHUB_OUTPUT"
+
+      - name: Check existing release
+        id: release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "${{ steps.version.outputs.tag }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Release ${{ steps.version.outputs.tag }} already exists; skipping publish."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up JDK
+        if: steps.release.outputs.exists == 'false'
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Set up Gradle
+        if: steps.release.outputs.exists == 'false'
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build plugin
+        if: steps.release.outputs.exists == 'false'
+        run: ./gradlew buildPlugin
+
+      - name: Prepare release artifact
+        if: steps.release.outputs.exists == 'false'
+        id: artifact
+        shell: bash
+        run: |
+          artifact="$(find build/distributions -maxdepth 1 -name '*.zip' -print -quit)"
+          if [[ -z "$artifact" ]]; then
+            echo "No plugin zip was generated under build/distributions" >&2
+            exit 1
+          fi
+
+          release_artifact="build/distributions/git-worktree-intellij-${{ steps.version.outputs.version }}.zip"
+          cp "$artifact" "$release_artifact"
+          echo "path=$release_artifact" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub release
+        if: steps.release.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          name: Git Worktree ${{ steps.version.outputs.version }}
+          body_path: RELEASE_NOTES.md
+          files: ${{ steps.artifact.outputs.path }}
