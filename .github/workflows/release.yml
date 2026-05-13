@@ -73,7 +73,9 @@ jobs:
           fi
 
           release_artifact="build/distributions/git-worktree-intellij-${{ steps.version.outputs.version }}.zip"
-          cp "$artifact" "$release_artifact"
+          if [[ "$artifact" != "$release_artifact" ]]; then
+            cp "$artifact" "$release_artifact"
+          fi
           echo "path=$release_artifact" >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub release
