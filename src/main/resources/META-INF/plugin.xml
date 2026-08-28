@@ -1,10 +1,19 @@
 <idea-plugin>
     <id>com.github.gitworktree</id>
     <name>Git Worktree Tools</name>
-    <vendor>aix</vendor>
+    <vendor url="https://github.com/LLP2333">LLP2333</vendor>
     <resource-bundle>messages.GitWorktreeBundle</resource-bundle>
     <description><![CDATA[
-        Manage Git worktrees directly in IntelliJ IDEA. Create, inspect, remove, lock, unlock, quickly switch, and compare files across worktrees.
+        <p>Manage Git worktrees without leaving IntelliJ IDEA.</p>
+        <p>
+            Create worktrees from HEAD, local or remote branches, tags, and commits. Use the dedicated
+            tool window to inspect, open, lock, unlock, and remove worktrees, or compare the current file
+            with its counterpart in another worktree.
+        </p>
+        <p>
+            Configure reusable path templates, optionally copy project files, and run an external command
+            after creation to fit the plugin into your development workflow.
+        </p>
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>

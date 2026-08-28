@@ -6,7 +6,7 @@ import java.io.File
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "2.3.0"
-    id("org.jetbrains.intellij.platform") version "2.11.0"
+    id("org.jetbrains.intellij.platform") version "2.18.1"
 }
 
 group = providers.gradleProperty("pluginGroup").get()
@@ -50,6 +50,15 @@ dependencies {
             intellijIdea(platformVersion)
         }
         bundledPlugins(bundledPlugins)
+        if (platformVersion.startsWith("2026.2")) {
+            bundledModules(
+                listOf(
+                    "intellij.platform.vcs.dvcs",
+                    "intellij.platform.vcs.dvcs.impl",
+                    "intellij.platform.vcs.log",
+                )
+            )
+        }
         testFramework(TestFrameworkType.Platform)
     }
 }
